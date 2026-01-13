@@ -9,6 +9,28 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.9"
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/sitemap": "^3.6.1",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.9",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0",
+    "prettier": "3.7.4",
+    "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-tailwindcss": "0.7.2",
+    "typescript-eslint": "^8.53.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }
