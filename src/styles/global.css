@@ -1,1 +1,101 @@
 @import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@font-face {
+  font-family: Lato;
+  src: url('/fonts/lato-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url('/fonts/lato-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url('/fonts/lato-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Alegreya;
+  src: url('/fonts/alegreya-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Alegreya;
+  src: url('/fonts/alegreya-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Alegreya;
+  src: url('/fonts/alegreya-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Iosevka;
+  src: url('/fonts/iosevka-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Iosevka;
+  src: url('/fonts/iosevka-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Iosevka;
+  src: url('/fonts/iosevka-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #000;
+  --foreground: #c1c1c1;
+  --accent: #5f8787;
+}
+
+@theme inline {
+  --color*: initial;
+
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-accent: var(--accent);
+}
+
+@layer base {
+  :root {
+    --fg: var(--foreground);
+    --bg: var(--background);
+
+    @variant dark {
+      --fg: var(--background);
+      --bg: var(--foreground);
+    }
+  }
+}
