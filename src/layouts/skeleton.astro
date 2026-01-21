@@ -6,6 +6,7 @@ import { setTitle } from '$lib/set-title';
 
 import dober from '$assets/dober.png';
 import { cn } from '$lib/cn';
+import NavBar from '$components/nav-bar.astro';
 
 type Props = {
   title: string;
@@ -23,14 +24,27 @@ const { title, description, image = dober } = Astro.props;
     <!-- Global Metadata -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={setTitle(title)} href={new URL('rss.xml', Astro.site)} />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Font preloads -->
-    <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-    <link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+
+    <!-- Serif -->
+    <link rel="preload" href="/fonts/alegreya/alegreya-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/alegreya/alegreya-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/alegreya/alegreya-italic.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Monospace -->
+    <link rel="preload" href="/fonts/iosevka/iosevka-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/iosevka/iosevka-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/iosevka/iosevka-italic.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Sans-serif -->
+    <link rel="preload" href="/fonts/lato/lato-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/lato/lato-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/lato/lato-italic.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
@@ -53,15 +67,11 @@ const { title, description, image = dober } = Astro.props;
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
-
-    <!-- Inline dark mode script to prevent FOUC -->
-    <script is:inline>
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? window.document.documentElement.setAttribute('data-theme', 'dark')
-        : window.document.documentElement.removeAttribute('data-theme');
-    </script>
   </head>
-  <body class={cn('bg-background', 'text-foreground')}>
-    <slot />
+  <body class={cn('bg-core', 'text-content', 'w-screen', 'h-screen', 'overflow-y-hidden')}>
+    <NavBar />
+    <main class={cn('w-full', 'h-full')}>
+      <slot />
+    </main>
   </body>
 </html>
