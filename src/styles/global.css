@@ -1,56 +1,11 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
-@font-face {
-  font-family: Lato;
-  src: url('/fonts/lato/lato-regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Lato;
-  src: url('/fonts/lato/lato-italic.woff2') format('woff2');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Lato;
-  src: url('/fonts/lato/lato-bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Alegreya;
-  src: url('/fonts/alegreya/alegreya-regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Alegreya;
-  src: url('/fonts/alegreya/alegreya-italic.woff2') format('woff2');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Alegreya;
-  src: url('/fonts/alegreya/alegreya-bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @font-face {
   font-family: Iosevka;
-  src: url('/fonts/iosevka/iosevka-regular.woff2') format('woff2');
+  src: url('/fonts/iosevka-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -58,7 +13,7 @@
 
 @font-face {
   font-family: Iosevka;
-  src: url('/fonts/iosevka/iosevka-italic.woff2') format('woff2');
+  src: url('/fonts/iosevka-italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -66,34 +21,56 @@
 
 @font-face {
   font-family: Iosevka;
-  src: url('/fonts/iosevka/iosevka-bold.woff2') format('woff2');
+  src: url('/fonts/iosevka-bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  --content: #c1c1c1;
-  --subtext: #505050;
-  --core: #000000;
-  --mantle: #0d0d0d;
-  --crust: #1a1a1a;
+  --text-light: #4c4f69;
+  --bg-light: #eff1f5;
 
-  --accent: #5f8787;
+  --text-dark: #c1c1c1;
+  --bg-dark: #1a1a1a;
+
+  --accent: #fe640b;
 }
 
 @theme inline {
   --color-*: initial;
 
-  --font-sans: 'Lato', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-serif: 'Alegreya', serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono: 'Iosevka', monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
-  --color-content: var(--content);
-  --color-subtext: var(--subtext);
-  --color-core: var(--core);
-  --color-mantle: var(--mantle);
-  --color-crust: var(--crust);
-
+  --color-primary: var(--text);
+  --color-secondary: var(--bg);
   --color-accent: var(--accent);
+}
+
+@layer base {
+  :root {
+    --text: var(--text-light);
+    --bg: var(--bg-light);
+    --accent: var(--accent);
+
+    @variant dark {
+      --text: var(--text-dark);
+      --bg: var(--bg-dark);
+    }
+  }
+
+  #sun-icon,
+  html[data-theme='dark'] #moon-icon {
+    display: none;
+  }
+  #moon-icon,
+  html[data-theme='dark'] #sun-icon {
+    display: block;
+  }
+}
+
+* {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

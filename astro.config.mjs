@@ -13,6 +13,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  site: 'https://example.com',
+  site: process.env.PUBLIC_SITE ?? 'http://localhost:4321',
   integrations: [sitemap(), mdx()],
 });

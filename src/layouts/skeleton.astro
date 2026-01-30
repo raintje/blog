@@ -1,12 +1,13 @@
 ---
-import '$styles/global.css';
+import '$/styles/global.css';
 
 import type { ImageMetadata } from 'astro';
-import { setTitle } from '$lib/set-title';
 
-import dober from '$assets/dober.png';
-import { cn } from '$lib/cn';
-import NavBar from '$components/nav-bar.astro';
+import { setTitle } from '$/lib/set-title';
+
+import { cn } from '$/lib/cn';
+
+import NavBar from '$/components/nav-bar.astro';
 
 type Props = {
   title: string;
@@ -16,38 +17,27 @@ type Props = {
 
 const canonicalURL: URL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = dober } = Astro.props;
+const { title, description = import.meta.env.PUBLIC_DESCRIPTION, image } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class={cn('overflow-y-scroll')}>
   <head>
     <!-- Global Metadata -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={setTitle(title)} href={new URL('rss.xml', Astro.site)} />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Theme initialization (prevent fouc) -->
+    <script is:inline src="/theme.js"></script>
+
     <!-- Font preloads -->
-
-    <!-- Serif -->
-    <link rel="preload" href="/fonts/alegreya/alegreya-regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/alegreya/alegreya-bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/alegreya/alegreya-italic.woff2" as="font" type="font/woff2" crossorigin />
-
-    <!-- Monospace -->
     <link rel="preload" href="/fonts/iosevka/iosevka-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/iosevka/iosevka-bold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/iosevka/iosevka-italic.woff2" as="font" type="font/woff2" crossorigin />
-
-    <!-- Sans-serif -->
-    <link rel="preload" href="/fonts/lato/lato-regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/lato/lato-bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/lato/lato-italic.woff2" as="font" type="font/woff2" crossorigin />
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
 
     <!-- Primary Meta Tags -->
     <title>{setTitle(title)}</title>
@@ -59,18 +49,18 @@ const { title, description, image = dober } = Astro.props;
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image.src, Astro.url)} />
+    <meta property="og:image" content={new URL(image?.src ?? '', Astro.url)} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+    <meta property="twitter:image" content={new URL(image?.src ?? '', Astro.url)} />
   </head>
-  <body class={cn('bg-core', 'text-content', 'w-screen', 'h-screen', 'overflow-y-hidden')}>
+  <body class={cn('font-mono', 'text-primary', 'bg-secondary', 'w-screen', 'min-h-screen', 'overflow-x-hidden')}>
     <NavBar />
-    <main class={cn('w-full', 'h-full')}>
+    <main class={cn('w-full', 'h-full', 'md:w-3xl', 'md:mx-auto')}>
       <slot />
     </main>
   </body>

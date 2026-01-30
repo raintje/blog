@@ -1,0 +1,11 @@
+---
+import Hero from '$/components/hero.astro';
+import Skeleton from '$/layouts/skeleton.astro';
+---
+
+<Skeleton title="Blog" description="Index page of the blog, containing most recent articles, categories, etc.">
+  <Hero>
+    <span slot="heading">Blog</span>
+    <span slot="content">This page contains the most recent articles posted to my blog.</span>
+  </Hero>
+</Skeleton>

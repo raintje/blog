@@ -1,31 +1,32 @@
 ---
-import { cn } from '$lib/cn';
-import NavLink from '$components/nav-link.astro';
+import { Moon, Search, Sun } from '@lucide/astro';
+
+import { cn } from '$/lib/cn';
+
+import NavLink from '$/components/nav-link.astro';
 ---
 
-<header class={cn('m-0', 'px-4', 'bg-crust', 'shadow-md', 'bg-mantle')}>
-  <nav class={cn('flex', 'items-center', 'justify-between')}>
-    <h1
-      class={cn(
-        'm-0',
-        'text-base',
-        'font-serif',
-        'capitalize',
-        'text-3xl',
-        'font-bold',
-        'hover:text-accent',
-        'transition-colors'
-      )}
-    >
+<header class={cn('mx-auto', 'w-full', 'md:max-w-3xl', 'border-b', 'border-accent')}>
+  <nav class={cn('flex', 'items-center', 'justify-between', 'py-8')}>
+    <h1 class={cn('m-0', 'text-base', 'text-3xl', 'font-bold', 'hover:text-accent', 'transition-colors')}>
       <a class={cn('no-underline')} href="/">{import.meta.env.PUBLIC_APP_TITLE}</a>
     </h1>
     <div>
       <input class={cn('bg-crust', 'border-core', 'px-4', 'py-2')} />
     </div>
-    <div class={cn('flex', 'gap-1')}>
+    <div class={cn('flex', 'items-center', 'gap-2', 'md:gap-4')}>
       <NavLink href="/">Home</NavLink>
-      <NavLink href="/about">About</NavLink>
       <NavLink href="/blog">Blog</NavLink>
+      <NavLink href="/tags">Tags</NavLink>
+      <NavLink href="/resume">Resume</NavLink>
+      <NavLink href="/search">
+        <span class={cn('sr-only')}>Search</span>
+        <Search class={cn('size-6')} />
+      </NavLink>
+      <button id="theme-btn" class={cn('hover:cursor-pointer', 'hover:text-accent')} aria-live="polite">
+        <Sun id={'sun-icon'} class={cn('fill-current', 'transition-colors', 'duration-100')} />
+        <Moon id={'moon-icon'} class={cn('fill-current', 'transition-colors', 'duration-100')} />
+      </button>
     </div>
   </nav>
 </header>

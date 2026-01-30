@@ -1,7 +1,29 @@
 ---
-import Skeleton from '$layouts/skeleton.astro';
+import { Github, Rss } from '@lucide/astro';
+
+import Hero from '$/components/hero.astro';
+import Skeleton from '$/layouts/skeleton.astro';
+import { cn } from '$/lib/cn';
 ---
 
 <Skeleton title="Home" description="The home page of the blog.">
-  <h1>Hello, world!</h1>
+  <Hero>
+    <span slot="heading">Observations of a scatterbrain</span>
+    <span slot="content">
+      Hello, my name is Wessel. I'm a software engineer with a passion for writing software that feels both good to
+      develop, and good to use. On this blog you'll mostly find my thoughts on anything and everything. Music,
+      literature, video games and maybe even the occasional post about software development.
+    </span>
+    <div class={cn('mt-4', 'flex', 'items-center', 'gap-2', 'text-xs', 'md:text-sm')}>
+      Check me out on:
+      <a href="https://github.com/raintje" class={cn('hover:cursor-pointer', 'hover:text-accent')}>
+        <span class={cn('sr-only')}>GitHub</span>
+        <Github class={cn('size-6', 'stroke-current', 'transition-all', 'duration-100')} />
+      </a>
+      <a href={new URL('rss.xml', import.meta.env.PUBLIC_SITE)} class={cn('hover:cursor-pointer', 'hover:text-accent')}>
+        <span class={cn('sr-only')}>RSS feed</span>
+        <Rss />
+      </a>
+    </div>
+  </Hero>
 </Skeleton>

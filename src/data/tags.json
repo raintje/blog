@@ -1,0 +1,22 @@
+{
+  "technology": {
+    "title": "Technology",
+    "description": "My experiences with programming, software development, and the tech industry."
+  },
+  "literature": {
+    "title": "Literature",
+    "description": "Book reviews, my general unorganized thoughts on books I've read or want to read, and other general musings.."
+  },
+  "music": {
+    "title": "Music",
+    "description": "Album reviews, thoughts on music, and other music-related content."
+  },
+  "development": {
+    "title": "Development",
+    "description": "Insights and experiences related to software development and programming."
+  },
+  "personal": {
+    "title": "Personal",
+    "description": "Reflections on my personal life, experiences, and growth."
+  }
+}
