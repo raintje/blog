@@ -7,7 +7,8 @@ import { setTitle } from '$/lib/set-title';
 
 import { cn } from '$/lib/cn';
 
-import NavBar from '$/components/nav-bar.astro';
+import Header from '$/components/header.astro';
+import Footer from '$/components/footer.astro';
 
 type Props = {
   title: string;
@@ -58,10 +59,22 @@ const { title, description = import.meta.env.PUBLIC_DESCRIPTION, image } = Astro
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image?.src ?? '', Astro.url)} />
   </head>
-  <body class={cn('font-mono', 'text-primary', 'bg-secondary', 'w-screen', 'min-h-screen', 'overflow-x-hidden')}>
-    <NavBar />
+  <body
+    class={cn(
+      'font-mono',
+      'text-primary',
+      'bg-secondary',
+      'w-screen',
+      'min-h-screen',
+      'overflow-x-hidden',
+      'flex',
+      'flex-col'
+    )}
+  >
+    <Header />
     <main class={cn('w-full', 'h-full', 'md:w-3xl', 'md:mx-auto')}>
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

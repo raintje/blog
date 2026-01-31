@@ -4,6 +4,10 @@ import { Github, Rss } from '@lucide/astro';
 import Hero from '$/components/hero.astro';
 import Skeleton from '$/layouts/skeleton.astro';
 import { cn } from '$/lib/cn';
+import { getCollection } from 'astro:content';
+import { slugify } from '$/lib/slugify';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
 ---
 
 <Skeleton title="Home" description="The home page of the blog.">
@@ -26,4 +30,19 @@ import { cn } from '$/lib/cn';
       </a>
     </div>
   </Hero>
+  <div class={cn('my-4')}>
+    <h2 class={cn('text-lg', 'md:text-xl', 'font-semibold', 'my-2', 'md:my-4')}>Recent Posts</h2>
+    {
+      posts.map((p) => (
+        <article>
+          <a href={`/blog/${slugify(p.data.title)}`}>
+            <header class={cn('py-2', 'font-semibold', 'text-base', 'md:text-lg', 'hover:text-accent', 'select-none')}>
+              {p.data.title}
+            </header>
+          </a>
+          <p class={cn('select-none', 'text-xs', 'md:text-sm', 'text-primary/75')}>{p.data.abstract}</p>
+        </article>
+      ))
+    }
+  </div>
 </Skeleton>

@@ -1,0 +1,44 @@
+---
+import { cn } from '$/lib/cn';
+import { ChevronRight } from '@lucide/astro';
+
+const currentUrlPath = Astro.url.pathname;
+const breadcrumbList = currentUrlPath.split('/').splice(1);
+
+breadcrumbList[0] === 'posts' && breadcrumbList.splice(0, 2, `Posts (page ${breadcrumbList[1] || 1})`);
+---
+
+<nav class={cn('mx-auto', 'mb-1', 'mt-8', 'w-full', 'md:max-w-3xl', 'px-4')}>
+  <ul>
+    <li class={cn('inline', 'not-last:hover:opacity-100')}>
+      <a href="/" class={cn('capitalize', 'opacity-70')}>Home</a>
+      <span aria-hidden="true">
+        &nbsp;
+        <ChevronRight />
+        &nbsp;
+      </span>
+    </li>
+    {
+      breadcrumbList.map((crumb, i) =>
+        i + 1 === breadcrumbList.length ? (
+          <li class={cn('inline', 'not-last:hover:opacity-100')}>
+            <span class={cn(i > 0 ? 'lowercase' : 'capitalize', 'opacity-70')} aria-current="page">
+              {crumb}
+            </span>
+          </li>
+        ) : (
+          <li class={cn('inline', 'not-last:hover:opacity-100')}>
+            <a href={`/${crumb}`} class={cn('capitalize', 'opacity-70')}>
+              {crumb}
+            </a>
+            <span aria-hidden="true">
+              &nbsp;
+              <ChevronRight />
+              &nbsp;
+            </span>
+          </li>
+        )
+      )
+    }
+  </ul>
+</nav>

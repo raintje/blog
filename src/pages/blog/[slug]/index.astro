@@ -1,6 +1,30 @@
 ---
+import type { GetStaticPaths } from 'astro';
+import Skeleton from '$/layouts/skeleton.astro';
 import { getEntry } from 'astro:content';
 import { type CollectionEntry, getCollection } from 'astro:content';
+import { slugify } from '$/lib/slugify';
+import { getPageNumbers } from '$/lib/get-page-numbers';
 
-const entry = await getEntry('blog', Astro.params.slug);
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+  const result = posts.map((post) => ({
+    params: { slug: slugify(post.data.title), props: { post } },
+  }));
+
+  const pages = getPageNumbers(posts.length).map((n) => ({
+    params: { slug: String(n) },
+  }));
+
+  return [...result, ...pages];
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
 ---
+
+<Skeleton title={post.data.title} description={post.data.abstract} />
