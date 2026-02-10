@@ -1,0 +1,31 @@
+---
+import { cn } from '$/lib/cn';
+import { slugify } from '$/lib/slugify';
+import { Calendar } from '@lucide/astro';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+  href: string;
+  frontmatter: CollectionEntry<'blog'>['data'];
+};
+
+const { href, frontmatter } = Astro.props as Props;
+const { title, abstract, publishedAt } = frontmatter;
+---
+
+<a href={href} class={cn('group')}>
+  <article>
+    <header class={cn('py-2', 'flex', 'items-center', 'justify-between')}>
+      <h2 class={cn('font-semibold', 'text-base', 'md:text-lg', 'group-hover:text-accent', 'select-none')}>
+        {title}
+      </h2>
+      <span class={cn('group-hover:text-accent', 'inline-flex', 'gap-1')}>
+        <Calendar class={cn('size-5')} />
+        {publishedAt.toLocaleDateString('nl-NL')}
+      </span>
+    </header>
+    <p class={cn('select-none', 'text-justify', 'text-xs', 'md:text-sm', 'text-primary/75')}>
+      {abstract}
+    </p>
+  </article>
+</a>

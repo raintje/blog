@@ -1,0 +1,21 @@
+---
+import { cn } from '$/lib/cn';
+
+type Props = {
+  marginTop?: boolean;
+};
+
+const { marginTop = false } = Astro.props as Props;
+---
+
+<footer class={cn(marginTop && 'mt-auto')}>
+  <div class={cn('border-accent', 'mx-auto', 'my-4', 'w-full', 'border-t', 'py-4', 'md:max-w-3xl')}>
+    <div class={cn('flex', 'items-center', 'justify-between')}>
+      <div>
+        &copy; {new Date().getFullYear()}
+        {`|`}
+        {import.meta.env.PUBLIC_APP_TITLE}
+      </div>
+    </div>
+  </div>
+</footer>
