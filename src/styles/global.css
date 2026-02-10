@@ -28,13 +28,13 @@
 }
 
 :root {
-  --text-light: #4c4f69;
-  --bg-light: #eff1f5;
+  --text-light: #16161d;
+  --bg-light: #dcd7ba;
+  --accent-light: #c34043;
 
   --text-dark: #c1c1c1;
   --bg-dark: #1a1a1a;
-
-  --accent: #fe640b;
+  --accent-dark: #98bb6c;
 }
 
 @theme inline {
@@ -51,11 +51,12 @@
   :root {
     --text: var(--text-light);
     --bg: var(--bg-light);
-    --accent: var(--accent);
+    --accent: var(--accent-light);
 
     @variant dark {
       --text: var(--text-dark);
       --bg: var(--bg-dark);
+      --accent: var(--accent-dark);
     }
   }
 

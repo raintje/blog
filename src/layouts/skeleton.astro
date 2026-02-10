@@ -75,6 +75,6 @@ const { title, description = import.meta.env.PUBLIC_DESCRIPTION, image } = Astro
     <main class={cn('w-full', 'h-full', 'md:w-3xl', 'md:mx-auto')}>
       <slot />
     </main>
-    <Footer />
+    <slot name="footer" />
   </body>
 </html>

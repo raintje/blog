@@ -1,30 +1,58 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Skeleton from '$/layouts/skeleton.astro';
-import { getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import { slugify } from '$/lib/slugify';
 import { getPageNumbers } from '$/lib/get-page-numbers';
+import Footer from '$/components/footer.astro';
+import Hero from '$/components/hero.astro';
+import { ArrowLeft } from '@lucide/astro';
+import { cn } from '$/lib/cn';
 
 type Props = {
   post: CollectionEntry<'blog'>;
 };
 
-export const getStaticPaths = (async () => {
+export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-  const result = posts.map((post) => ({
-    params: { slug: slugify(post.data.title), props: { post } },
+  const postResult = posts.map((post) => ({
+    params: { slug: slugify(post.data.title) },
+    props: { post },
   }));
 
-  const pages = getPageNumbers(posts.length).map((n) => ({
-    params: { slug: String(n) },
+  const pagePaths = getPageNumbers(posts.length).map((pageNum) => ({
+    params: { slug: String(pageNum) },
   }));
 
-  return [...result, ...pages];
-}) satisfies GetStaticPaths;
+  return [...postResult, ...pagePaths];
+}
 
 const { post } = Astro.props;
+
+const { Content } = await render(post);
 ---
 
-<Skeleton title={post.data.title} description={post.data.abstract} />
+<Skeleton title={post.data.title} description={post.data.abstract}>
+  <button
+    class={cn(
+      'mt-8',
+      'mb-4',
+      'hover:text-accent',
+      'font-semibold',
+      'hover:cursor-pointer',
+      'select-none',
+      'inline-flex',
+      'items-center',
+      'gap-1'
+    )}
+    onclick="history.back()"
+  >
+    <ArrowLeft class={cn('size-4')} />
+    Go back
+  </button>
+  <h1 class={cn('text-2xl', 'font-bold', 'text-accent')}>{post.data.title}</h1>
+  <Content />
+  <Footer slot={'footer'} marginTop />
+</Skeleton>

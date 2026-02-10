@@ -18,5 +18,13 @@
   "personal": {
     "title": "Personal",
     "description": "Reflections on my personal life, experiences, and growth."
+  },
+  "malazan": {
+    "title": "Malazan",
+    "description": "Thoughts and reviews pertaining to the Steven Erikson's Malazan Book of the Fallen, and assorted spin-offs."
+  },
+  "gaming": {
+    "title": "Gaming",
+    "description": "Game reviews, sometimes actual, sometimes just thoughts on games I've played or want to play."
   }
 }

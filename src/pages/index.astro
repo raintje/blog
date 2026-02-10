@@ -1,11 +1,18 @@
 ---
-import { Github, Rss } from '@lucide/astro';
+import { Rss } from '@lucide/astro';
+
+import { getCollection } from 'astro:content';
 
 import Hero from '$/components/hero.astro';
+import BlogPostCard from '$/components/blog-post-card.astro';
+
 import Skeleton from '$/layouts/skeleton.astro';
+
 import { cn } from '$/lib/cn';
-import { getCollection } from 'astro:content';
 import { slugify } from '$/lib/slugify';
+
+import GithubIcon from '$/assets/icons/github.svg';
+import Footer from '$/components/footer.astro';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 ---
@@ -22,7 +29,7 @@ const posts = await getCollection('blog', ({ data }) => !data.draft);
       Check me out on:
       <a href="https://github.com/raintje" class={cn('hover:cursor-pointer', 'hover:text-accent')}>
         <span class={cn('sr-only')}>GitHub</span>
-        <Github class={cn('size-6', 'stroke-current', 'transition-all', 'duration-100')} />
+        <GithubIcon class={cn('size-6', 'stroke-current', 'transition-all', 'duration-100')} />
       </a>
       <a href={new URL('rss.xml', import.meta.env.PUBLIC_SITE)} class={cn('hover:cursor-pointer', 'hover:text-accent')}>
         <span class={cn('sr-only')}>RSS feed</span>
@@ -32,17 +39,7 @@ const posts = await getCollection('blog', ({ data }) => !data.draft);
   </Hero>
   <div class={cn('my-4')}>
     <h2 class={cn('text-lg', 'md:text-xl', 'font-semibold', 'my-2', 'md:my-4')}>Recent Posts</h2>
-    {
-      posts.map((p) => (
-        <article>
-          <a href={`/blog/${slugify(p.data.title)}`}>
-            <header class={cn('py-2', 'font-semibold', 'text-base', 'md:text-lg', 'hover:text-accent', 'select-none')}>
-              {p.data.title}
-            </header>
-          </a>
-          <p class={cn('select-none', 'text-xs', 'md:text-sm', 'text-primary/75')}>{p.data.abstract}</p>
-        </article>
-      ))
-    }
+    {posts.map((p) => <BlogPostCard href={`/blog/${slugify(p.data.title)}`} frontmatter={p.data} />)}
   </div>
+  <Footer slot={'footer'} marginTop />
 </Skeleton>
